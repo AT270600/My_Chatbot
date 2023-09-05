@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MYChatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 360px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .chat-box {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            text-align: left;
+            border-radius: 10px;
+            max-height: 300px; /* Set a maximum height for the chat box */
+            overflow: auto; /* Enable scrollbar when content exceeds the height */
+        }
+
+        .user-message, .chatbot-message {
+            max-width: 70%;
+            word-wrap: break-word;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .user-message {
+            background-color: #007bff;
+            color: #fff;
+            text-align: right; /* Align user input to the right */
+            margin-left: auto; /* Push user message to the right */
+        }
+
+        .chatbot-message {
+            background-color: #ccc;
+            color: #333;
+            text-align: left; /* Align chatbot input to the left */
+            margin-right: auto; /* Push chatbot message to the left */
+        }
+
+        input[type="text"] {
+            width: 70%;
+            padding: 10px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 25px;
+            outline: none;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My Chatbot</h1>
+        <div class="chat-box" id="chat-box">
+            {% for message in messages %}
+                {% if message.sender == 'user' %}
+                    <div class="user-message">{{ message.text }}</div>
+                {% else %}
+                    <div class="chatbot-message">{{ message.text }}</div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <form method="POST" action="/chat">
+            <input type="text" name="user_input" placeholder="Type your message" required>
+            <input type="submit" value="Send">
+        </form>
+    </div>
+
+    <script>
+        // JavaScript to scroll the chat box to the present conversation
+        const chatBox = document.getElementById('chat-box');
+        chatBox.scrollTop = chatBox.scrollHeight;
+        
+        
+    </script>
+</body>
+</html>
